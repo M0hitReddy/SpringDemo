@@ -15,10 +15,10 @@ public class Controller {
     private UserRepository userRepository;
 
     @PostMapping(path = "/add")
-    public @ResponseBody User addUser(@RequestParam String name,@RequestParam String email){
+    public @ResponseBody User addUser(@RequestBody User userData){
         User newUser=new User();
-        newUser.setName(name);
-        newUser.setEmail(email);
+        newUser.setName(userData.getName());
+        newUser.setEmail(userData.getEmail());
         userRepository.save(newUser);
         return newUser;
     }
@@ -39,7 +39,7 @@ public class Controller {
         return userRepository.findById(id);
     }
 
-    @PostMapping(path = "/name")
+    @GetMapping(path = "/name")
     public @ResponseBody Iterable<User> gatByName(@RequestParam String name){
         return userRepository.findByName(name);
     }
